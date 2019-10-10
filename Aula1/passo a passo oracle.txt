@@ -1,0 +1,27 @@
+no meio da instalação :
+C:\oraclexe\app\oracle\product\11.2.0\server\network\ADMIN
+sqlnet.ora
+SQLNET.AUTHENTICATION_SERVICES = (NONE)
+
+se não achar o sqlplus, configurar a variavel de abiente e adicionar no path o caminho: C:\oraclexe\app\oracle\product\11.2.0\server\bin;
+
+conn system/oracle;
+
+ Create tablespace CRESCER18DAT
+  datafile 'C:\oraclexe\app\oracle\oradata\XE\crescer18dat01.dbf'
+  size 100m
+  autoextend on
+  next 100m
+  maxsize 2048m;
+
+Create user CRESCER2018 identified by CRESCER2018 default tablespace CRESCER18DAT;
+
+grant connect, resource, create view to CRESCER2018;
+
+conn CRESCER2018/CRESCER2018
+
+no oraclexe: mkdir PUMP
+
+adicionar na pasta PUMP os arquivos da pasta CRESCER2018 do drive.
+
+no cmd: Impdp system/oracle schemas=CRESCER2018 directory=ORACLE_DUMP dumpfile=CRESCER2018 logfile=ImportCRESCER2018
